@@ -10,7 +10,7 @@ def read_weather_data(file_path):
     dates = []
     max_temp = []
     min_temp = []
-    max_humidity = []
+    most_humidity = []
 
     with open(file_path, "r") as file:
         next(file)
@@ -21,7 +21,7 @@ def read_weather_data(file_path):
             date = content[0].strip()
             pmaxtemp = content[1].strip()
             pmin_temp = content[3].strip()
-            pmax_humidity = content[7].strip()
+            pmost_humidity = content[7].strip()
             
             try:
                 date_obj = datetime.strptime(date, '%Y-%m-%d')
@@ -33,13 +33,13 @@ def read_weather_data(file_path):
                 min_temp_value = float(pmin_temp)
                 min_temp.append(min_temp_value)
                 
-                max_humidity_value = float(pmax_humidity)
-                max_humidity.append(max_humidity_value)
+                most_humidity_value = float(pmost_humidity)
+                most_humidity.append(most_humidity_value)
             
             except ValueError:
                 continue
 
-    return dates, max_temp, min_temp, max_humidity
+    return dates, max_temp, min_temp, most_humidity
 
 def display_menu():
     print("\nWeather Data Menu")
@@ -52,7 +52,7 @@ def display_menu():
 def main():
     file_path = "Dubai_weather/Dubai_weather_2004_Aug.txt"
     
-    dates, max_temp, min_temp, max_humidity = read_weather_data(file_path)
+    dates, max_temp, min_temp, most_humidity = read_weather_data(file_path)
     
     while True:
         display_menu()
@@ -60,23 +60,23 @@ def main():
         
         if choice == '1':
             max_value = max(max_temp)
-            print(f"The maximum temperature is {max_value}°C")
+            print(f"The maximum temperature is {max_value}")
         
         elif choice == '2':
             min_value = min(min_temp)
-            print(f"The minimum temperature is {min_value}°C")
+            print(f"The minimum temperature is {min_value}")
         
         elif choice == '3':
-            max_humidity_value = max(max_humidity)
-            print(f"The highest humidity is {max_humidity_value}%")
+            most_humidity_value = max(most_humidity)
+            print(f"The highest humidity is {most_humidity_value}")
         
         elif choice == '4':
             max_value = max(max_temp)
             min_value = min(min_temp)
-            max_humidity_value = max(max_humidity)
+            most_humidity_value = max(most_humidity)
             print(f"Max Temperature: {max_value}")
             print(f"Min Temperature: {min_value}")
-            print(f"Highest Humidity: {max_humidity_value}")
+            print(f"Highest Humidity: {most_humidity_value}")
         
         elif choice == '5':
             print("Exiting the program.")
